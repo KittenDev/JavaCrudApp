@@ -56,11 +56,11 @@
         </div>
         <div class="mb-3">
             <label for="productPrice" class="form-label">Price</label>
-            <input type="text" class="form-control" name="productPrice" th:value="${product.productPrice}">
+            <input type="number" class="form-control" name="productPrice" th:value="${product.productPrice}">
         </div>
         <div class="mb-3">
             <label for="productAmount" class="form-label">Quantity</label>
-            <input type="text" class="form-control" name="productAmount" th:value="${product.productAmount}">
+            <input type="number" class="form-control" name="productAmount" th:value="${product.productAmount}">
         </div>
         <center><button type="submit" class="btn btn-primary">Submit</button></center>
     </form>

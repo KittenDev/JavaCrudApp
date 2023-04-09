@@ -3,6 +3,7 @@ package com.xpresso.cafe.service;
 import com.xpresso.cafe.model.Product;
 import com.xpresso.cafe.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,7 +17,9 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public void addProduct(Product product) {
-        productRepository.insert(product);
+        try {
+            productRepository.insert(product);
+        } catch (DuplicateKeyException e) {}
     }
 
     public void updateProduct(Product product) {
