@@ -3,6 +3,7 @@ package com.xpresso.cafe.service;
 import com.xpresso.cafe.model.Product;
 import com.xpresso.cafe.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
@@ -31,7 +32,7 @@ public class ProductService {
 
     public Product getProduct(String name) {
         return productRepository.findByName(name)
-                .orElseThrow(() -> new RuntimeException(String.format("Cannot Find Product by Name - %s", name)));
+                .orElse(null);
     }
 
     public Product getProductById(String id) {
@@ -40,7 +41,7 @@ public class ProductService {
     }
 
     public List<Product> getAllProduct() {
-        return productRepository.findAll();
+        return productRepository.findAll(Sort.by(Sort.Direction.ASC, "productName"));
     }
 
     public void deleteProduct(String id) {

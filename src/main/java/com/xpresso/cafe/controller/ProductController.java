@@ -46,9 +46,15 @@ public class ProductController {
     }
 
     @GetMapping("/product_list")
-    public ModelAndView getAllProduct() {
-        List<Product>list = productService.getAllProduct();
-
+    public ModelAndView getAllProduct(String keyword) {
+        List<Product> list;
+        if (!keyword.equals("")) {
+            list = new ArrayList<>();
+            list.add(productService.getProduct(keyword));
+            if (list.contains(null))
+                list.clear();
+        }else
+            list = productService.getAllProduct();
         return new ModelAndView("product", "productList", list);
     }
 
