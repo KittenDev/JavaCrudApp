@@ -16,9 +16,7 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public void addProduct(Product product) {
-        Product p = productRepository.findByName(product.getProductName()).orElse(null);
-        if (p == null)
-            productRepository.insert(product);
+        productRepository.insert(product);
     }
 
     public void updateProduct(Product product) {
@@ -28,11 +26,6 @@ public class ProductService {
         savedProduct.setProductAmount(product.getProductAmount());
 
         productRepository.save(product);
-    }
-
-    public Product getProduct(String name) {
-        return productRepository.findByName(name)
-                .orElse(null);
     }
 
     public List<Product> getProductPartial(String name) {
