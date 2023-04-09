@@ -35,6 +35,10 @@ public class ProductService {
                 .orElse(null);
     }
 
+    public List<Product> getProductPartial(String name) {
+        return productRepository.findByNamePartial(name);
+    }
+
     public Product getProductById(String id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException(String.format("Cannot Find Product by Id - %s", id)));

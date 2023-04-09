@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -49,10 +48,7 @@ public class ProductController {
     public ModelAndView getAllProduct(String keyword) {
         List<Product> list;
         if (keyword != null) {
-            list = new ArrayList<>();
-            list.add(productService.getProduct(keyword));
-            if (list.contains(null))
-                list.clear();
+            list = productService.getProductPartial(keyword);
             if (keyword.equals(""))
                 list = productService.getAllProduct();
         }else
