@@ -10,7 +10,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -54,9 +53,14 @@ public class ProductController {
     }
 
     @GetMapping("/product_list")
-    public ModelAndView getAllProduct() {
-        List<Product>list = productService.getAllProduct();
-
+    public ModelAndView getAllProduct(String keyword) {
+        List<Product> list;
+        if (keyword != null) {
+            list = productService.getProductPartial(keyword);
+            if (keyword.equals(""))
+                list = productService.getAllProduct();
+        }else
+            list = productService.getAllProduct();
         return new ModelAndView("product", "productList", list);
     }
 

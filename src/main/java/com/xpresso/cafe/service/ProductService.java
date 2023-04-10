@@ -3,6 +3,8 @@ package com.xpresso.cafe.service;
 import com.xpresso.cafe.model.Product;
 import com.xpresso.cafe.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
@@ -15,9 +17,9 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public void addProduct(Product product) {
-        Product p = productRepository.findByName(product.getProductName()).orElse(null);
-        if (p == null)
+        try {
             productRepository.insert(product);
+        } catch (DuplicateKeyException e) {}
     }
 
     public void updateProduct(Product product) {
@@ -29,9 +31,8 @@ public class ProductService {
         productRepository.save(product);
     }
 
-    public Product getProduct(String name) {
-        return productRepository.findByName(name)
-                .orElseThrow(() -> new RuntimeException(String.format("Cannot Find Product by Name - %s", name)));
+    public List<Product> getProductPartial(String name) {
+        return productRepository.findByNamePartial(name);
     }
 
     public Product getProductById(String id) {
@@ -40,7 +41,7 @@ public class ProductService {
     }
 
     public List<Product> getAllProduct() {
-        return productRepository.findAll();
+        return productRepository.findAll(Sort.by(Sort.Direction.ASC, "productName"));
     }
 
     public void deleteProduct(String id) {

@@ -47,6 +47,10 @@
     </nav>
 
     <div class="container my-5 table-responsive">
+        <form class="d-flex" th:action="@{/product_list}" method="get">
+            <input class="form-control me-2" type="text" placeholder="Search Product by Name" th:value="${keyword}" name="keyword">
+            <button class="btn btn-outline-success text-white" type="submit">Search</button>
+        </form>
         <table class="table table-striped table-hover">
             <thead>
             <tr>
