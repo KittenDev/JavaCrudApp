@@ -5,12 +5,15 @@ import com.xpresso.cafe.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 @Controller
+@Validated
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
@@ -21,10 +24,15 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public String addProduct(Product product) {
+    public String addProduct(Product product, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "redirect:/product_list"; 
+        }
         productService.addProduct(product);
-        return "redirect:/product_list";
+        return "redirect:/product_list"; 
     }
+
+
 
     @PostMapping("/update")
     public String updateProduct(Product product) {

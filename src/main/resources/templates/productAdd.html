@@ -62,6 +62,9 @@
         <input type="number" class="form-control" name="productAmount">
       </div>
       <center><button type="submit" class="btn btn-primary">Submit</button></center>
+      <div th:if="${error}" class="alert alert-danger">
+        <p th:text="${error}"></p>
+    </div>
     </form>
   </div>
 
