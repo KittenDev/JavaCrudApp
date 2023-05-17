@@ -21,6 +21,8 @@ public class Product {
     @Field("name")
     @Indexed(unique = true, direction = IndexDirection.ASCENDING)
     private String productName;
+    @Field("cost")
+    private double productCost;
     @Field("price")
     private double productPrice;
     @Field("amount")

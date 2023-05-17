@@ -19,7 +19,7 @@ public class ProductService {
     public void addProduct(Product product) {
         try {
             productRepository.insert(product);
-        } catch (DuplicateKeyException e) {}
+        } catch (DuplicateKeyException ignored) {}
     }
 
     public void updateProduct(Product product) {
@@ -46,5 +46,9 @@ public class ProductService {
 
     public void deleteProduct(String id) {
         productRepository.deleteById(id);
+    }
+
+    public void buyProduct(Product product) {
+        product.setProductAmount(product.getProductAmount() - 1);
     }
 }

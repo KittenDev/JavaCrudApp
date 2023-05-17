@@ -33,7 +33,6 @@ public class ProductController {
     }
 
 
-
     @PostMapping("/update")
     public String updateProduct(Product product) {
         productService.updateProduct(product);
