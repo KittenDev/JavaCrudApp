@@ -47,8 +47,4 @@ public class ProductService {
     public void deleteProduct(String id) {
         productRepository.deleteById(id);
     }
-
-    public void buyProduct(Product product) {
-        product.setProductAmount(product.getProductAmount() - 1);
-    }
 }
